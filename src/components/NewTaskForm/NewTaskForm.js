@@ -11,10 +11,16 @@ export default class NewTaskForm extends React.Component {
             value: e.target.value
         })
     }
+    onSubmit = (e) => {
+        e.preventDefault();
+        this.props.onCreateTask(this.state.value);
+    }
 
     render() {
         return (
-            <form><input className="new-todo" value={this.state.value} placeholder="What needs to be done?" autoFocus onChange={this.onChange}/>
+            <form onSubmit={this.onSubmit}><input className="new-todo" value={this.state.value}
+                                                  placeholder="What needs to be done?" autoFocus
+                                                  onChange={this.onChange}/>
             </form>);
     }
 };

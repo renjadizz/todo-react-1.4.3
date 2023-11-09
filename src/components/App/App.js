@@ -12,7 +12,15 @@ export default class App extends React.Component {
             {id: 3, state: '', description: 'Active task', created: 'created 5 minutes ago'}
         ]
     }
-
+    onCreateTask = (taskValue) => {
+        const id = this.state.taskItems.length + 1;
+        const state = '';
+        const description = taskValue;
+        const created = 'now';
+        this.setState(({taskItems}) => ({
+            taskItems: [...taskItems, {id, state, description, created}]
+        }));
+    }
     onChangeTaskState = (id) => {
         this.setState(({taskItems}) => {
             const taskItemsLeft = taskItems.map((item) => {
@@ -37,7 +45,7 @@ export default class App extends React.Component {
         const {taskItems} = this.state;
         return (
             <section className="todoapp">
-                <Header/>
+                <Header onCreateTask={this.onCreateTask}/>
                 <section className="main">
                     <TaskList taskItems={taskItems} onChangeTaskState={this.onChangeTaskState}
                               onDeleteTaskItem={this.onDeleteTaskItem}/>
