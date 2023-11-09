@@ -1,18 +1,24 @@
 import './TasksFilter.css'
 
 
-const TasksFilter = () => {
+const TasksFilter = ({onFilterChange, filter}) => {
+    const liWithBtns = [
+        {state: 'all', label: 'All'},
+        {state: 'active', label: 'Active'},
+        {state: 'completed', label: 'Completed'},
+    ]
+
+    const buttons = liWithBtns.map((el) => {
+        const activeClass = el.state === filter ? "selected" : null;
+        return (
+            <li>
+                <button className={activeClass} onClick={() => onFilterChange(el.state)}>{el.label}</button>
+            </li>
+        );
+    });
     return (
         <ul className="filters">
-            <li>
-                <button className="selected">All</button>
-            </li>
-            <li>
-                <button>Active</button>
-            </li>
-            <li>
-                <button>Completed</button>
-            </li>
+            {buttons}
         </ul>
     );
 }

@@ -41,6 +41,9 @@ export default class App extends React.Component {
             return {taskItems: taskItemsLeft};
         })
     }
+    onFilterChange = (filter) => {
+        this.setState({filter});
+    }
     filterTasks = (taskItems, filter) => {
         if (filter !== 'all') {
             return taskItems.filter((el) => el.state === filter)
@@ -56,7 +59,7 @@ export default class App extends React.Component {
                 <section className="main">
                     <TaskList taskItems={taskItems} onChangeTaskState={this.onChangeTaskState}
                               onDeleteTaskItem={this.onDeleteTaskItem}/>
-                    <Footer/>
+                    <Footer filter={this.state.filter} onFilterChange={this.onFilterChange}/>
                 </section>
             </section>
         );
