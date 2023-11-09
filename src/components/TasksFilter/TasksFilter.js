@@ -11,7 +11,7 @@ const TasksFilter = ({onFilterChange, filter}) => {
     const buttons = liWithBtns.map((el) => {
         const activeClass = el.state === filter ? "selected" : null;
         return (
-            <li>
+            <li key={el.state}>
                 <button className={activeClass} onClick={() => onFilterChange(el.state)}>{el.label}</button>
             </li>
         );
