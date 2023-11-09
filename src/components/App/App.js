@@ -9,8 +9,9 @@ export default class App extends React.Component {
         taskItems: [
             {id: 1, state: 'completed', description: 'Completed task', created: 'created 17 seconds ago'},
             {id: 2, state: 'editing', description: 'Editing task', created: 'created 5 minutes ago'},
-            {id: 3, state: '', description: 'Active task', created: 'created 5 minutes ago'}
-        ]
+            {id: 3, state: 'active', description: 'Active task', created: 'created 5 minutes ago'}
+        ],
+        filter: 'active'
     }
     onCreateTask = (taskValue) => {
         const id = this.state.taskItems.length + 1;
@@ -40,9 +41,15 @@ export default class App extends React.Component {
             return {taskItems: taskItemsLeft};
         })
     }
+    filterTasks = (taskItems, filter) => {
+        if (filter !== 'all') {
+            return taskItems.filter((el) => el.state === filter)
+        }
+        return taskItems;
+    }
 
     render() {
-        const {taskItems} = this.state;
+        const taskItems = this.filterTasks(this.state.taskItems, this.state.filter);
         return (
             <section className="todoapp">
                 <Header onCreateTask={this.onCreateTask}/>
