@@ -56,9 +56,17 @@ export default class App extends React.Component {
         }
         return taskItems;
     }
+    countActive = (taskItems) => {
+        let counter = 0;
+        taskItems.forEach((el) => {
+            if (el.state !== 'completed') counter++;
+        })
+        return counter;
+    }
 
     render() {
         const taskItems = this.filterTasks(this.state.taskItems, this.state.filter);
+        const activeTasks = this.countActive(this.state.taskItems);
         return (
             <section className="todoapp">
                 <Header onCreateTask={this.onCreateTask}/>
@@ -66,7 +74,7 @@ export default class App extends React.Component {
                     <TaskList taskItems={taskItems} onChangeTaskState={this.onChangeTaskState}
                               onDeleteTaskItem={this.onDeleteTaskItem}/>
                     <Footer filter={this.state.filter} onFilterChange={this.onFilterChange}
-                            onDeleteCompleted={this.onDeleteCompleted}/>
+                            onDeleteCompleted={this.onDeleteCompleted} activeTasks={activeTasks}/>
                 </section>
             </section>
         );
