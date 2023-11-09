@@ -41,6 +41,12 @@ export default class App extends React.Component {
             return {taskItems: taskItemsLeft};
         })
     }
+    onDeleteCompleted = () => {
+        const completed = this.filterTasks(this.state.taskItems, 'completed');
+        completed.forEach(el => {
+            this.onDeleteTaskItem(el.id);
+        })
+    }
     onFilterChange = (filter) => {
         this.setState({filter});
     }
@@ -59,7 +65,8 @@ export default class App extends React.Component {
                 <section className="main">
                     <TaskList taskItems={taskItems} onChangeTaskState={this.onChangeTaskState}
                               onDeleteTaskItem={this.onDeleteTaskItem}/>
-                    <Footer filter={this.state.filter} onFilterChange={this.onFilterChange}/>
+                    <Footer filter={this.state.filter} onFilterChange={this.onFilterChange}
+                            onDeleteCompleted={this.onDeleteCompleted}/>
                 </section>
             </section>
         );
